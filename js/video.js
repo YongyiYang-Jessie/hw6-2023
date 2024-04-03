@@ -4,7 +4,6 @@ window.addEventListener("load", function() {
 	console.log("Good job opening the window")
     });
 
-
 	const playButton = document.getElementById('play');
 	const pauseButton = document.getElementById('pause');
 	const volumeDisplay = document.getElementById('volume');
@@ -14,6 +13,17 @@ window.addEventListener("load", function() {
 	const speedupbutton = document.getElementById('faster');
 	const vintageButton = document.getElementById("vintage");
     const origButton = document.getElementById("orig");
+    const volumeslider = document.getElementById('slider');
+
+
+    volumeslider.addEventListener('input', function() {
+        video.volume = parseFloat(this.value) / 100;
+        updateVolumeDisplay();
+    });
+
+    function updateVolumeDisplay() {
+        volumeDisplay.textContent = Math.round(video.volume * 100) + '%';
+    }
 
     vintageButton.addEventListener("click", function() {
         // Add the oldSchool class to the video element
@@ -63,13 +73,7 @@ window.addEventListener("load", function() {
         console.log("Current video location: " + video.currentTime);
     });
 
-
-	function updateVolumeDisplay() {
-		volumeDisplay.textContent = Math.round(video.volume * 100) + '%';
-	}
-
-	slowDownButton.addEventListener("click", function() {
-        playbackRate -= 0.1 * Math.abs(playbackRate);
-        video.playbackRate = playbackRate;
-        console.log("New speed: " + playbackRate.toFixed(2));
-	});
+    slowDownButton.addEventListener("click", function() {
+        video.playbackRate *= 0.9; // Decrease the playback rate by 10%
+        console.log("New speed: " + video.playbackRate.toFixed(2));
+    });
