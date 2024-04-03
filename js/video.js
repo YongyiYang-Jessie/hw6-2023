@@ -37,9 +37,9 @@ window.addEventListener("load", function() {
 
 
 	speedupbutton.addEventListener("click", function() {
-		playbackRate += 0.1 * Math.abs(playbackRate);
-        video.playbackRate = playbackRate;
-        console.log("New speed: " + playbackRate.toFixed(2));
+       tenpercent = video.playbackRate / 10;
+       newrate = video.playbackRate + tenpercent;
+       video.playbackRate = newrate;
 	});
 
 
@@ -73,7 +73,9 @@ window.addEventListener("load", function() {
         console.log("Current video location: " + video.currentTime);
     });
 
-    slowDownButton.addEventListener("click", function() {
-        video.playbackRate *= 0.9; // Decrease the playback rate by 10%
-        console.log("New speed: " + video.playbackRate.toFixed(2));
+    slowerButton.addEventListener("click", function() {
+      tenpercent = video.playbackRate / 10;
+      newrate = video.playbackRate - tenpercent;
+      video.playbackRate = newrate;
     });
+
