@@ -5,7 +5,6 @@ window.addEventListener("load", function() {
 	console.log("Good job opening the window")
     });
 
-
 	const playButton = document.getElementById('play');
 	const pauseButton = document.getElementById('pause');
 	const volumeDisplay = document.getElementById('volume');
@@ -28,11 +27,22 @@ window.addEventListener("load", function() {
 
 
 	speedupbutton.addEventListener("click", function() {
-		playbackRate += 0.1 * Math.abs(playbackRate);
+        // If the playback rate is less than 1.0, increase it proportionally
+        if (playbackRate < 1.0) {
+            playbackRate += 0.1 * Math.abs(playbackRate) * (1 / playbackRate);
+        } else {
+            playbackRate += 0.1;
+        }
+        video.playbackRate = playbackRate;
+        console.log("New speed: " + playbackRate.toFixed(2));
+    });
+    
+	slowDownButton.addEventListener("click", function() {
+        playbackRate -= 0.1 * Math.abs(playbackRate);
         video.playbackRate = playbackRate;
         console.log("New speed: " + playbackRate.toFixed(2));
 	});
-
+	
 
     muteButton.addEventListener("click", function() {
         if (video.muted) {
@@ -54,7 +64,6 @@ window.addEventListener("load", function() {
     });
 
 	skipButton.addEventListener("click", function() {
-        // Check if the video has ended
         if (video.currentTime + 10 >= video.duration) {
             // If yes, go back to the start of the video
             video.currentTime = 0;
@@ -69,16 +78,10 @@ window.addEventListener("load", function() {
 		volumeDisplay.textContent = Math.round(video.volume * 100) + '%';
 	}
 
-	slowDownButton.addEventListener("click", function() {
-        playbackRate -= 0.1 * Math.abs(playbackRate);
-        video.playbackRate = playbackRate;
-        console.log("New speed: " + playbackRate.toFixed(2));
-	});
-	
-
 
 
 // document.querySelector("#play").addEventListener("click", function() {
 // 	console.log("Play Video");
 // });
+
 
