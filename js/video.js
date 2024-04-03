@@ -1,9 +1,9 @@
-
 var video = document.getElementById('player1');
 
 window.addEventListener("load", function() {
 	console.log("Good job opening the window")
     });
+
 
 	const playButton = document.getElementById('play');
 	const pauseButton = document.getElementById('pause');
@@ -27,22 +27,11 @@ window.addEventListener("load", function() {
 
 
 	speedupbutton.addEventListener("click", function() {
-        // If the playback rate is less than 1.0, increase it proportionally
-        if (playbackRate < 1.0) {
-            playbackRate += 0.1 * Math.abs(playbackRate) * (1 / playbackRate);
-        } else {
-            playbackRate += 0.1;
-        }
-        video.playbackRate = playbackRate;
-        console.log("New speed: " + playbackRate.toFixed(2));
-    });
-    
-	slowDownButton.addEventListener("click", function() {
-        playbackRate -= 0.1 * Math.abs(playbackRate);
+		playbackRate += 0.1 * Math.abs(playbackRate);
         video.playbackRate = playbackRate;
         console.log("New speed: " + playbackRate.toFixed(2));
 	});
-	
+
 
     muteButton.addEventListener("click", function() {
         if (video.muted) {
@@ -64,6 +53,7 @@ window.addEventListener("load", function() {
     });
 
 	skipButton.addEventListener("click", function() {
+        // Check if the video has ended
         if (video.currentTime + 10 >= video.duration) {
             // If yes, go back to the start of the video
             video.currentTime = 0;
@@ -73,15 +63,13 @@ window.addEventListener("load", function() {
         console.log("Current video location: " + video.currentTime);
     });
 
-	
+
 	function updateVolumeDisplay() {
 		volumeDisplay.textContent = Math.round(video.volume * 100) + '%';
 	}
 
-
-
-// document.querySelector("#play").addEventListener("click", function() {
-// 	console.log("Play Video");
-// });
-
-
+	slowDownButton.addEventListener("click", function() {
+        playbackRate -= 0.1 * Math.abs(playbackRate);
+        video.playbackRate = playbackRate;
+        console.log("New speed: " + playbackRate.toFixed(2));
+	});
